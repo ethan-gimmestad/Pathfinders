@@ -1,0 +1,237 @@
+<html>
+<head>
+<title>MainActivity.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #7a7e85;}
+.s4 { color: #6aab73;}
+.s5 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+MainActivity.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">unco</span><span class="s2">.</span><span class="s1">edu</span><span class="s2">.</span><span class="s1">pathfinders</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">os</span><span class="s2">.</span><span class="s1">Bundle</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">Log</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">widget</span><span class="s2">.</span><span class="s1">SearchView</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">widget</span><span class="s2">.</span><span class="s1">Toast</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">androidx</span><span class="s2">.</span><span class="s1">appcompat</span><span class="s2">.</span><span class="s1">app</span><span class="s2">.</span><span class="s1">AppCompatActivity</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">google</span><span class="s2">.</span><span class="s1">android</span><span class="s2">.</span><span class="s1">gms</span><span class="s2">.</span><span class="s1">maps</span><span class="s2">.</span><span class="s1">SupportMapFragment</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">google</span><span class="s2">.</span><span class="s1">android</span><span class="s2">.</span><span class="s1">gms</span><span class="s2">.</span><span class="s1">maps</span><span class="s2">.</span><span class="s1">model</span><span class="s2">.</span><span class="s1">LatLng</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">google</span><span class="s2">.</span><span class="s1">android</span><span class="s2">.</span><span class="s1">gms</span><span class="s2">.</span><span class="s1">maps</span><span class="s2">.</span><span class="s1">model</span><span class="s2">.</span><span class="s1">PolylineOptions</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">google</span><span class="s2">.</span><span class="s1">android</span><span class="s2">.</span><span class="s1">gms</span><span class="s2">.</span><span class="s1">maps</span><span class="s2">.</span><span class="s1">GoogleMap</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">google</span><span class="s2">.</span><span class="s1">android</span><span class="s2">.</span><span class="s1">gms</span><span class="s2">.</span><span class="s1">maps</span><span class="s2">.</span><span class="s1">OnMapReadyCallback</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">google</span><span class="s2">.</span><span class="s1">android</span><span class="s2">.</span><span class="s1">gms</span><span class="s2">.</span><span class="s1">maps</span><span class="s2">.</span><span class="s1">CameraUpdateFactory</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">google</span><span class="s2">.</span><span class="s1">android</span><span class="s2">.</span><span class="s1">gms</span><span class="s2">.</span><span class="s1">maps</span><span class="s2">.</span><span class="s1">model</span><span class="s2">.</span><span class="s1">LatLngBounds</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">google</span><span class="s2">.</span><span class="s1">maps</span><span class="s2">.</span><span class="s1">android</span><span class="s2">.</span><span class="s1">PolyUtil</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">json</span><span class="s2">.</span><span class="s1">JSONArray</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">org</span><span class="s2">.</span><span class="s1">json</span><span class="s2">.</span><span class="s1">JSONObject</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">io</span><span class="s2">.</span><span class="s1">BufferedReader</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">io</span><span class="s2">.</span><span class="s1">InputStreamReader</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">net</span><span class="s2">.</span><span class="s1">HttpURLConnection</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">net</span><span class="s2">.</span><span class="s1">URL</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">net</span><span class="s2">.</span><span class="s1">URLEncoder</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">nio</span><span class="s2">.</span><span class="s1">charset</span><span class="s2">.</span><span class="s1">StandardCharsets</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">List</span><span class="s2">;</span>
+
+<span class="s0">public class </span><span class="s1">MainActivity </span><span class="s0">extends </span><span class="s1">AppCompatActivity </span><span class="s0">implements </span><span class="s1">OnMapReadyCallback </span><span class="s2">{</span>
+
+    <span class="s0">private </span><span class="s1">GoogleMap mMap</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">LatLng location1</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">LatLng location2</span><span class="s2">;</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">protected void </span><span class="s1">onCreate</span><span class="s2">(</span><span class="s1">Bundle savedInstanceState</span><span class="s2">) {</span>
+        <span class="s0">super</span><span class="s2">.</span><span class="s1">onCreate</span><span class="s2">(</span><span class="s1">savedInstanceState</span><span class="s2">);</span>
+        <span class="s1">setContentView</span><span class="s2">(</span><span class="s1">R</span><span class="s2">.</span><span class="s1">layout</span><span class="s2">.</span><span class="s1">activity_main</span><span class="s2">);</span>
+
+        <span class="s1">SupportMapFragment mapFragment </span><span class="s2">= (</span><span class="s1">SupportMapFragment</span><span class="s2">) </span><span class="s1">getSupportFragmentManager</span><span class="s2">()</span>
+                <span class="s2">.</span><span class="s1">findFragmentById</span><span class="s2">(</span><span class="s1">R</span><span class="s2">.</span><span class="s1">id</span><span class="s2">.</span><span class="s1">map_fragment</span><span class="s2">);</span>
+        <span class="s1">mapFragment</span><span class="s2">.</span><span class="s1">getMapAsync</span><span class="s2">(</span><span class="s0">this</span><span class="s2">);</span>
+
+        <span class="s3">// SearchView for entering two locations</span>
+        <span class="s1">SearchView searchView </span><span class="s2">= </span><span class="s1">findViewById</span><span class="s2">(</span><span class="s1">R</span><span class="s2">.</span><span class="s1">id</span><span class="s2">.</span><span class="s1">search_view</span><span class="s2">);</span>
+        <span class="s1">searchView</span><span class="s2">.</span><span class="s1">setQueryHint</span><span class="s2">(</span><span class="s4">&quot;Enter two locations separated by a comma&quot;</span><span class="s2">);</span>
+
+        <span class="s3">// Handle search query submission</span>
+        <span class="s1">searchView</span><span class="s2">.</span><span class="s1">setOnQueryTextListener</span><span class="s2">(</span><span class="s0">new </span><span class="s1">SearchView</span><span class="s2">.</span><span class="s1">OnQueryTextListener</span><span class="s2">() {</span>
+            <span class="s1">@Override</span>
+            <span class="s0">public boolean </span><span class="s1">onQueryTextSubmit</span><span class="s2">(</span><span class="s1">String query</span><span class="s2">) {</span>
+                <span class="s1">String</span><span class="s2">[] </span><span class="s1">locations </span><span class="s2">= </span><span class="s1">query</span><span class="s2">.</span><span class="s1">split</span><span class="s2">(</span><span class="s4">&quot;,&quot;</span><span class="s2">);</span>
+                <span class="s0">if </span><span class="s2">(</span><span class="s1">locations</span><span class="s2">.</span><span class="s1">length </span><span class="s2">== </span><span class="s5">2</span><span class="s2">) {</span>
+                    <span class="s1">String location1Str </span><span class="s2">= </span><span class="s1">locations</span><span class="s2">[</span><span class="s5">0</span><span class="s2">].</span><span class="s1">trim</span><span class="s2">();</span>
+                    <span class="s1">String location2Str </span><span class="s2">= </span><span class="s1">locations</span><span class="s2">[</span><span class="s5">1</span><span class="s2">].</span><span class="s1">trim</span><span class="s2">();</span>
+
+                    <span class="s3">// Geocode both locations</span>
+                    <span class="s1">geocodeLocation</span><span class="s2">(</span><span class="s1">location1Str</span><span class="s2">, </span><span class="s5">1</span><span class="s2">);</span>
+                    <span class="s1">geocodeLocation</span><span class="s2">(</span><span class="s1">location2Str</span><span class="s2">, </span><span class="s5">2</span><span class="s2">);</span>
+                <span class="s2">} </span><span class="s0">else </span><span class="s2">{</span>
+                    <span class="s1">Toast</span><span class="s2">.</span><span class="s1">makeText</span><span class="s2">(</span><span class="s1">MainActivity</span><span class="s2">.</span><span class="s0">this</span><span class="s2">, </span><span class="s4">&quot;Please enter two locations separated by a comma.&quot;</span><span class="s2">, </span><span class="s1">Toast</span><span class="s2">.</span><span class="s1">LENGTH_LONG</span><span class="s2">).</span><span class="s1">show</span><span class="s2">();</span>
+                <span class="s2">}</span>
+                <span class="s0">return false</span><span class="s2">;</span>
+            <span class="s2">}</span>
+
+            <span class="s1">@Override</span>
+            <span class="s0">public boolean </span><span class="s1">onQueryTextChange</span><span class="s2">(</span><span class="s1">String newText</span><span class="s2">) {</span>
+                <span class="s0">return false</span><span class="s2">;</span>
+            <span class="s2">}</span>
+        <span class="s2">});</span>
+
+        <span class="s3">// Zoom In and Zoom Out Buttons</span>
+        <span class="s1">findViewById</span><span class="s2">(</span><span class="s1">R</span><span class="s2">.</span><span class="s1">id</span><span class="s2">.</span><span class="s1">btn_zoom_in</span><span class="s2">).</span><span class="s1">setOnClickListener</span><span class="s2">(</span><span class="s1">v -&gt; </span><span class="s2">{</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">mMap </span><span class="s2">!= </span><span class="s0">null</span><span class="s2">) {</span>
+                <span class="s1">mMap</span><span class="s2">.</span><span class="s1">animateCamera</span><span class="s2">(</span><span class="s1">CameraUpdateFactory</span><span class="s2">.</span><span class="s1">zoomIn</span><span class="s2">());</span>
+            <span class="s2">}</span>
+        <span class="s2">});</span>
+
+        <span class="s1">findViewById</span><span class="s2">(</span><span class="s1">R</span><span class="s2">.</span><span class="s1">id</span><span class="s2">.</span><span class="s1">btn_zoom_out</span><span class="s2">).</span><span class="s1">setOnClickListener</span><span class="s2">(</span><span class="s1">v -&gt; </span><span class="s2">{</span>
+            <span class="s0">if </span><span class="s2">(</span><span class="s1">mMap </span><span class="s2">!= </span><span class="s0">null</span><span class="s2">) {</span>
+                <span class="s1">mMap</span><span class="s2">.</span><span class="s1">animateCamera</span><span class="s2">(</span><span class="s1">CameraUpdateFactory</span><span class="s2">.</span><span class="s1">zoomOut</span><span class="s2">());</span>
+            <span class="s2">}</span>
+        <span class="s2">});</span>
+    <span class="s2">}</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">public void </span><span class="s1">onMapReady</span><span class="s2">(</span><span class="s1">GoogleMap googleMap</span><span class="s2">) {</span>
+        <span class="s1">mMap </span><span class="s2">= </span><span class="s1">googleMap</span><span class="s2">;</span>
+    <span class="s2">}</span>
+
+    <span class="s3">// Geocode the entered location to get LatLng</span>
+    <span class="s0">private void </span><span class="s1">geocodeLocation</span><span class="s2">(</span><span class="s1">String location</span><span class="s2">, </span><span class="s0">int </span><span class="s1">locationIndex</span><span class="s2">) {</span>
+        <span class="s0">try </span><span class="s2">{</span>
+            <span class="s3">// URL encode the location string</span>
+            <span class="s1">String encodedLocation </span><span class="s2">= </span><span class="s1">URLEncoder</span><span class="s2">.</span><span class="s1">encode</span><span class="s2">(</span><span class="s1">location</span><span class="s2">, </span><span class="s1">StandardCharsets</span><span class="s2">.</span><span class="s1">UTF_8</span><span class="s2">.</span><span class="s1">toString</span><span class="s2">());</span>
+            <span class="s1">String urlString </span><span class="s2">= </span><span class="s4">&quot;https://maps.googleapis.com/maps/api/geocode/json?address=&quot; </span><span class="s2">+ </span><span class="s1">encodedLocation </span><span class="s2">+ </span><span class="s4">&quot;&amp;key=AIzaSyBZmGdCsZeGTn42o8lpbGlPk2a1_ukycr0&quot;</span><span class="s2">;</span>
+
+            <span class="s3">// Log the request URL for debugging</span>
+            <span class="s1">Log</span><span class="s2">.</span><span class="s1">d</span><span class="s2">(</span><span class="s4">&quot;GeocodeRequest&quot;</span><span class="s2">, </span><span class="s4">&quot;Request URL: &quot; </span><span class="s2">+ </span><span class="s1">urlString</span><span class="s2">);</span>
+
+            <span class="s0">new </span><span class="s1">Thread</span><span class="s2">(() </span><span class="s1">-&gt; </span><span class="s2">{</span>
+                <span class="s0">try </span><span class="s2">{</span>
+                    <span class="s1">URL url </span><span class="s2">= </span><span class="s0">new </span><span class="s1">URL</span><span class="s2">(</span><span class="s1">urlString</span><span class="s2">);</span>
+                    <span class="s1">HttpURLConnection conn </span><span class="s2">= (</span><span class="s1">HttpURLConnection</span><span class="s2">) </span><span class="s1">url</span><span class="s2">.</span><span class="s1">openConnection</span><span class="s2">();</span>
+                    <span class="s1">conn</span><span class="s2">.</span><span class="s1">setRequestMethod</span><span class="s2">(</span><span class="s4">&quot;GET&quot;</span><span class="s2">);</span>
+
+                    <span class="s1">BufferedReader in </span><span class="s2">= </span><span class="s0">new </span><span class="s1">BufferedReader</span><span class="s2">(</span><span class="s0">new </span><span class="s1">InputStreamReader</span><span class="s2">(</span><span class="s1">conn</span><span class="s2">.</span><span class="s1">getInputStream</span><span class="s2">()));</span>
+                    <span class="s1">StringBuilder response </span><span class="s2">= </span><span class="s0">new </span><span class="s1">StringBuilder</span><span class="s2">();</span>
+                    <span class="s1">String line</span><span class="s2">;</span>
+                    <span class="s0">while </span><span class="s2">((</span><span class="s1">line </span><span class="s2">= </span><span class="s1">in</span><span class="s2">.</span><span class="s1">readLine</span><span class="s2">()) != </span><span class="s0">null</span><span class="s2">) {</span>
+                        <span class="s1">response</span><span class="s2">.</span><span class="s1">append</span><span class="s2">(</span><span class="s1">line</span><span class="s2">);</span>
+                    <span class="s2">}</span>
+                    <span class="s1">in</span><span class="s2">.</span><span class="s1">close</span><span class="s2">();</span>
+
+                    <span class="s3">// Log the raw API response for debugging</span>
+                    <span class="s1">Log</span><span class="s2">.</span><span class="s1">d</span><span class="s2">(</span><span class="s4">&quot;GeocodeResponse&quot;</span><span class="s2">, </span><span class="s1">response</span><span class="s2">.</span><span class="s1">toString</span><span class="s2">());</span>
+
+                    <span class="s1">JSONObject jsonObject </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JSONObject</span><span class="s2">(</span><span class="s1">response</span><span class="s2">.</span><span class="s1">toString</span><span class="s2">());</span>
+                    <span class="s1">JSONArray results </span><span class="s2">= </span><span class="s1">jsonObject</span><span class="s2">.</span><span class="s1">getJSONArray</span><span class="s2">(</span><span class="s4">&quot;results&quot;</span><span class="s2">);</span>
+
+                    <span class="s0">if </span><span class="s2">(</span><span class="s1">results</span><span class="s2">.</span><span class="s1">length</span><span class="s2">() &gt; </span><span class="s5">0</span><span class="s2">) {</span>
+                        <span class="s1">JSONObject locationObject </span><span class="s2">= </span><span class="s1">results</span><span class="s2">.</span><span class="s1">getJSONObject</span><span class="s2">(</span><span class="s5">0</span><span class="s2">).</span><span class="s1">getJSONObject</span><span class="s2">(</span><span class="s4">&quot;geometry&quot;</span><span class="s2">).</span><span class="s1">getJSONObject</span><span class="s2">(</span><span class="s4">&quot;location&quot;</span><span class="s2">);</span>
+                        <span class="s1">LatLng latLng </span><span class="s2">= </span><span class="s0">new </span><span class="s1">LatLng</span><span class="s2">(</span><span class="s1">locationObject</span><span class="s2">.</span><span class="s1">getDouble</span><span class="s2">(</span><span class="s4">&quot;lat&quot;</span><span class="s2">), </span><span class="s1">locationObject</span><span class="s2">.</span><span class="s1">getDouble</span><span class="s2">(</span><span class="s4">&quot;lng&quot;</span><span class="s2">));</span>
+
+                        <span class="s1">runOnUiThread</span><span class="s2">(() </span><span class="s1">-&gt; </span><span class="s2">{</span>
+                            <span class="s0">if </span><span class="s2">(</span><span class="s1">locationIndex </span><span class="s2">== </span><span class="s5">1</span><span class="s2">) {</span>
+                                <span class="s1">location1 </span><span class="s2">= </span><span class="s1">latLng</span><span class="s2">;</span>
+                            <span class="s2">} </span><span class="s0">else </span><span class="s2">{</span>
+                                <span class="s1">location2 </span><span class="s2">= </span><span class="s1">latLng</span><span class="s2">;</span>
+                            <span class="s2">}</span>
+
+                            <span class="s3">// If both locations are available, plot the route</span>
+                            <span class="s0">if </span><span class="s2">(</span><span class="s1">location1 </span><span class="s2">!= </span><span class="s0">null </span><span class="s2">&amp;&amp; </span><span class="s1">location2 </span><span class="s2">!= </span><span class="s0">null</span><span class="s2">) {</span>
+                                <span class="s1">plotRoute</span><span class="s2">(</span><span class="s1">location1</span><span class="s2">, </span><span class="s1">location2</span><span class="s2">);</span>
+                            <span class="s2">}</span>
+                        <span class="s2">});</span>
+                    <span class="s2">} </span><span class="s0">else </span><span class="s2">{</span>
+                        <span class="s1">runOnUiThread</span><span class="s2">(() </span><span class="s1">-&gt; Toast</span><span class="s2">.</span><span class="s1">makeText</span><span class="s2">(</span><span class="s1">MainActivity</span><span class="s2">.</span><span class="s0">this</span><span class="s2">, </span><span class="s4">&quot;Address not found!&quot;</span><span class="s2">, </span><span class="s1">Toast</span><span class="s2">.</span><span class="s1">LENGTH_SHORT</span><span class="s2">).</span><span class="s1">show</span><span class="s2">());</span>
+                    <span class="s2">}</span>
+                <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">Exception e</span><span class="s2">) {</span>
+                    <span class="s1">e</span><span class="s2">.</span><span class="s1">printStackTrace</span><span class="s2">();</span>
+                <span class="s2">}</span>
+            <span class="s2">}).</span><span class="s1">start</span><span class="s2">();</span>
+        <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">Exception e</span><span class="s2">) {</span>
+            <span class="s1">e</span><span class="s2">.</span><span class="s1">printStackTrace</span><span class="s2">();</span>
+        <span class="s2">}</span>
+    <span class="s2">}</span>
+
+
+    <span class="s3">// Function to plot the route between two locations</span>
+    <span class="s0">private void </span><span class="s1">plotRoute</span><span class="s2">(</span><span class="s1">LatLng origin</span><span class="s2">, </span><span class="s1">LatLng destination</span><span class="s2">) {</span>
+        <span class="s1">String urlString </span><span class="s2">= </span><span class="s4">&quot;https://maps.googleapis.com/maps/api/directions/json?origin=&quot; </span><span class="s2">+</span>
+                <span class="s1">origin</span><span class="s2">.</span><span class="s1">latitude </span><span class="s2">+ </span><span class="s4">&quot;,&quot; </span><span class="s2">+ </span><span class="s1">origin</span><span class="s2">.</span><span class="s1">longitude </span><span class="s2">+ </span><span class="s4">&quot;&amp;destination=&quot; </span><span class="s2">+</span>
+                <span class="s1">destination</span><span class="s2">.</span><span class="s1">latitude </span><span class="s2">+ </span><span class="s4">&quot;,&quot; </span><span class="s2">+ </span><span class="s1">destination</span><span class="s2">.</span><span class="s1">longitude </span><span class="s2">+ </span><span class="s4">&quot;&amp;key=YOUR_API_KEY&quot;</span><span class="s2">;</span>
+
+        <span class="s0">new </span><span class="s1">Thread</span><span class="s2">(() </span><span class="s1">-&gt; </span><span class="s2">{</span>
+            <span class="s0">try </span><span class="s2">{</span>
+                <span class="s1">URL url </span><span class="s2">= </span><span class="s0">new </span><span class="s1">URL</span><span class="s2">(</span><span class="s1">urlString</span><span class="s2">);</span>
+                <span class="s1">HttpURLConnection conn </span><span class="s2">= (</span><span class="s1">HttpURLConnection</span><span class="s2">) </span><span class="s1">url</span><span class="s2">.</span><span class="s1">openConnection</span><span class="s2">();</span>
+                <span class="s1">conn</span><span class="s2">.</span><span class="s1">setRequestMethod</span><span class="s2">(</span><span class="s4">&quot;GET&quot;</span><span class="s2">);</span>
+
+                <span class="s1">BufferedReader in </span><span class="s2">= </span><span class="s0">new </span><span class="s1">BufferedReader</span><span class="s2">(</span><span class="s0">new </span><span class="s1">InputStreamReader</span><span class="s2">(</span><span class="s1">conn</span><span class="s2">.</span><span class="s1">getInputStream</span><span class="s2">()));</span>
+                <span class="s1">StringBuilder response </span><span class="s2">= </span><span class="s0">new </span><span class="s1">StringBuilder</span><span class="s2">();</span>
+                <span class="s1">String line</span><span class="s2">;</span>
+                <span class="s0">while </span><span class="s2">((</span><span class="s1">line </span><span class="s2">= </span><span class="s1">in</span><span class="s2">.</span><span class="s1">readLine</span><span class="s2">()) != </span><span class="s0">null</span><span class="s2">) {</span>
+                    <span class="s1">response</span><span class="s2">.</span><span class="s1">append</span><span class="s2">(</span><span class="s1">line</span><span class="s2">);</span>
+                <span class="s2">}</span>
+                <span class="s1">in</span><span class="s2">.</span><span class="s1">close</span><span class="s2">();</span>
+
+                <span class="s3">// Parse the API response</span>
+                <span class="s1">JSONObject jsonObject </span><span class="s2">= </span><span class="s0">new </span><span class="s1">JSONObject</span><span class="s2">(</span><span class="s1">response</span><span class="s2">.</span><span class="s1">toString</span><span class="s2">());</span>
+                <span class="s1">String status </span><span class="s2">= </span><span class="s1">jsonObject</span><span class="s2">.</span><span class="s1">getString</span><span class="s2">(</span><span class="s4">&quot;status&quot;</span><span class="s2">);</span>
+
+                <span class="s3">// Check if the API found a route</span>
+                <span class="s0">if </span><span class="s2">(</span><span class="s1">status</span><span class="s2">.</span><span class="s1">equals</span><span class="s2">(</span><span class="s4">&quot;OK&quot;</span><span class="s2">)) {</span>
+                    <span class="s1">JSONArray routes </span><span class="s2">= </span><span class="s1">jsonObject</span><span class="s2">.</span><span class="s1">getJSONArray</span><span class="s2">(</span><span class="s4">&quot;routes&quot;</span><span class="s2">);</span>
+                    <span class="s1">JSONObject route </span><span class="s2">= </span><span class="s1">routes</span><span class="s2">.</span><span class="s1">getJSONObject</span><span class="s2">(</span><span class="s5">0</span><span class="s2">);</span>
+                    <span class="s1">JSONObject overviewPolyline </span><span class="s2">= </span><span class="s1">route</span><span class="s2">.</span><span class="s1">getJSONObject</span><span class="s2">(</span><span class="s4">&quot;overview_polyline&quot;</span><span class="s2">);</span>
+                    <span class="s1">String encodedPolyline </span><span class="s2">= </span><span class="s1">overviewPolyline</span><span class="s2">.</span><span class="s1">getString</span><span class="s2">(</span><span class="s4">&quot;points&quot;</span><span class="s2">);</span>
+
+                    <span class="s1">runOnUiThread</span><span class="s2">(() </span><span class="s1">-&gt; drawPolyline</span><span class="s2">(</span><span class="s1">encodedPolyline</span><span class="s2">));</span>
+                <span class="s2">} </span><span class="s0">else </span><span class="s2">{</span>
+                    <span class="s3">// Handle no route found or other errors</span>
+                    <span class="s1">runOnUiThread</span><span class="s2">(() </span><span class="s1">-&gt; </span><span class="s2">{</span>
+                        <span class="s1">Toast</span><span class="s2">.</span><span class="s1">makeText</span><span class="s2">(</span><span class="s1">MainActivity</span><span class="s2">.</span><span class="s0">this</span><span class="s2">, </span><span class="s4">&quot;No route found or error: &quot; </span><span class="s2">+ </span><span class="s1">status</span><span class="s2">, </span><span class="s1">Toast</span><span class="s2">.</span><span class="s1">LENGTH_LONG</span><span class="s2">).</span><span class="s1">show</span><span class="s2">();</span>
+                    <span class="s2">});</span>
+                    <span class="s1">Log</span><span class="s2">.</span><span class="s1">e</span><span class="s2">(</span><span class="s4">&quot;DirectionsAPI&quot;</span><span class="s2">, </span><span class="s4">&quot;Error: &quot; </span><span class="s2">+ </span><span class="s1">status</span><span class="s2">);</span>
+                <span class="s2">}</span>
+            <span class="s2">} </span><span class="s0">catch </span><span class="s2">(</span><span class="s1">Exception e</span><span class="s2">) {</span>
+                <span class="s1">e</span><span class="s2">.</span><span class="s1">printStackTrace</span><span class="s2">();</span>
+            <span class="s2">}</span>
+        <span class="s2">}).</span><span class="s1">start</span><span class="s2">();</span>
+    <span class="s2">}</span>
+
+
+    <span class="s3">// Decode polyline and draw it on the map</span>
+    <span class="s0">private void </span><span class="s1">drawPolyline</span><span class="s2">(</span><span class="s1">String encodedPolyline</span><span class="s2">) {</span>
+        <span class="s1">List</span><span class="s2">&lt;</span><span class="s1">LatLng</span><span class="s2">&gt; </span><span class="s1">decodedPath </span><span class="s2">= </span><span class="s1">PolyUtil</span><span class="s2">.</span><span class="s1">decode</span><span class="s2">(</span><span class="s1">encodedPolyline</span><span class="s2">);</span>
+        <span class="s1">PolylineOptions polylineOptions </span><span class="s2">= </span><span class="s0">new </span><span class="s1">PolylineOptions</span><span class="s2">().</span><span class="s1">color</span><span class="s2">(</span><span class="s5">0xFF0000FF</span><span class="s2">).</span><span class="s1">width</span><span class="s2">(</span><span class="s5">8</span><span class="s2">);</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">LatLng latLng </span><span class="s2">: </span><span class="s1">decodedPath</span><span class="s2">) {</span>
+            <span class="s1">polylineOptions</span><span class="s2">.</span><span class="s1">add</span><span class="s2">(</span><span class="s1">latLng</span><span class="s2">);</span>
+        <span class="s2">}</span>
+        <span class="s1">mMap</span><span class="s2">.</span><span class="s1">addPolyline</span><span class="s2">(</span><span class="s1">polylineOptions</span><span class="s2">);</span>
+
+        <span class="s3">// Automatically adjust the zoom and camera to show the entire route</span>
+        <span class="s1">LatLngBounds bounds </span><span class="s2">= </span><span class="s1">LatLngBounds</span><span class="s2">.</span><span class="s1">builder</span><span class="s2">()</span>
+                <span class="s2">.</span><span class="s1">include</span><span class="s2">(</span><span class="s1">location1</span><span class="s2">)  </span><span class="s3">// Include the first location</span>
+                <span class="s2">.</span><span class="s1">include</span><span class="s2">(</span><span class="s1">location2</span><span class="s2">)  </span><span class="s3">// Include the second location</span>
+                <span class="s2">.</span><span class="s1">build</span><span class="s2">();</span>
+
+        <span class="s3">// Animate the camera to fit both locations and the route on the map</span>
+        <span class="s1">mMap</span><span class="s2">.</span><span class="s1">animateCamera</span><span class="s2">(</span><span class="s1">CameraUpdateFactory</span><span class="s2">.</span><span class="s1">newLatLngBounds</span><span class="s2">(</span><span class="s1">bounds</span><span class="s2">, </span><span class="s5">100</span><span class="s2">));  </span><span class="s3">// Padding of 100</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+</pre>
+</body>
+</html>

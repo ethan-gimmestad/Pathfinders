@@ -1,0 +1,89 @@
+<html>
+<head>
+<title>MapsActivity.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #7a7e85;}
+.s4 { color: #6aab73;}
+.s5 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+MapsActivity.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">unco</span><span class="s2">.</span><span class="s1">edu</span><span class="s2">.</span><span class="s1">pathfinders</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">androidx</span><span class="s2">.</span><span class="s1">fragment</span><span class="s2">.</span><span class="s1">app</span><span class="s2">.</span><span class="s1">FragmentActivity</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">location</span><span class="s2">.</span><span class="s1">Location</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">os</span><span class="s2">.</span><span class="s1">Bundle</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">android</span><span class="s2">.</span><span class="s1">widget</span><span class="s2">.</span><span class="s1">Toast</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">google</span><span class="s2">.</span><span class="s1">android</span><span class="s2">.</span><span class="s1">gms</span><span class="s2">.</span><span class="s1">maps</span><span class="s2">.</span><span class="s1">CameraUpdateFactory</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">google</span><span class="s2">.</span><span class="s1">android</span><span class="s2">.</span><span class="s1">gms</span><span class="s2">.</span><span class="s1">maps</span><span class="s2">.</span><span class="s1">GoogleMap</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">google</span><span class="s2">.</span><span class="s1">android</span><span class="s2">.</span><span class="s1">gms</span><span class="s2">.</span><span class="s1">maps</span><span class="s2">.</span><span class="s1">OnMapReadyCallback</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">google</span><span class="s2">.</span><span class="s1">android</span><span class="s2">.</span><span class="s1">gms</span><span class="s2">.</span><span class="s1">maps</span><span class="s2">.</span><span class="s1">SupportMapFragment</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">google</span><span class="s2">.</span><span class="s1">android</span><span class="s2">.</span><span class="s1">gms</span><span class="s2">.</span><span class="s1">maps</span><span class="s2">.</span><span class="s1">model</span><span class="s2">.</span><span class="s1">LatLng</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">google</span><span class="s2">.</span><span class="s1">android</span><span class="s2">.</span><span class="s1">gms</span><span class="s2">.</span><span class="s1">maps</span><span class="s2">.</span><span class="s1">model</span><span class="s2">.</span><span class="s1">Marker</span><span class="s2">;</span>
+<span class="s0">import </span><span class="s1">com</span><span class="s2">.</span><span class="s1">google</span><span class="s2">.</span><span class="s1">android</span><span class="s2">.</span><span class="s1">gms</span><span class="s2">.</span><span class="s1">maps</span><span class="s2">.</span><span class="s1">model</span><span class="s2">.</span><span class="s1">MarkerOptions</span><span class="s2">;</span>
+
+<span class="s0">import </span><span class="s1">java</span><span class="s2">.</span><span class="s1">util</span><span class="s2">.</span><span class="s1">List</span><span class="s2">;</span>
+
+<span class="s0">public class </span><span class="s1">MapsActivity </span><span class="s0">extends </span><span class="s1">FragmentActivity </span><span class="s0">implements </span><span class="s1">OnMapReadyCallback </span><span class="s2">{</span>
+
+    <span class="s1">List</span><span class="s2">&lt;</span><span class="s1">Location</span><span class="s2">&gt; </span><span class="s1">savedLocations</span><span class="s2">;</span>
+    <span class="s0">private </span><span class="s1">GoogleMap mMap</span><span class="s2">;</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">protected void </span><span class="s1">onCreate</span><span class="s2">(</span><span class="s1">Bundle savedInstanceState</span><span class="s2">) {</span>
+        <span class="s0">super</span><span class="s2">.</span><span class="s1">onCreate</span><span class="s2">(</span><span class="s1">savedInstanceState</span><span class="s2">);</span>
+        <span class="s1">setContentView</span><span class="s2">(</span><span class="s1">R</span><span class="s2">.</span><span class="s1">layout</span><span class="s2">.</span><span class="s1">activity_maps</span><span class="s2">); </span><span class="s3">// Linking to the correct layout</span>
+
+        <span class="s3">// Obtain the SupportMapFragment and get notified when the map is ready</span>
+        <span class="s1">SupportMapFragment mapFragment </span><span class="s2">= (</span><span class="s1">SupportMapFragment</span><span class="s2">) </span><span class="s1">getSupportFragmentManager</span><span class="s2">()</span>
+                <span class="s2">.</span><span class="s1">findFragmentById</span><span class="s2">(</span><span class="s1">R</span><span class="s2">.</span><span class="s1">id</span><span class="s2">.</span><span class="s1">map</span><span class="s2">);</span>
+        <span class="s1">mapFragment</span><span class="s2">.</span><span class="s1">getMapAsync</span><span class="s2">(</span><span class="s0">this</span><span class="s2">);</span>
+
+        <span class="s1">MyApplication myApplication </span><span class="s2">= (</span><span class="s1">MyApplication</span><span class="s2">) </span><span class="s1">getApplicationContext</span><span class="s2">();</span>
+        <span class="s1">savedLocations </span><span class="s2">= </span><span class="s1">myApplication</span><span class="s2">.</span><span class="s1">getMyLocations</span><span class="s2">();</span>
+    <span class="s2">}</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">public void </span><span class="s1">onMapReady</span><span class="s2">(</span><span class="s1">GoogleMap googleMap</span><span class="s2">) {</span>
+        <span class="s1">mMap </span><span class="s2">= </span><span class="s1">googleMap</span><span class="s2">;</span>
+
+        <span class="s1">LatLng lastLocationPlaced </span><span class="s2">= </span><span class="s0">null</span><span class="s2">;</span>
+
+        <span class="s3">// Add markers for saved locations</span>
+        <span class="s0">for </span><span class="s2">(</span><span class="s1">Location location </span><span class="s2">: </span><span class="s1">savedLocations</span><span class="s2">) {</span>
+            <span class="s1">LatLng latlng </span><span class="s2">= </span><span class="s0">new </span><span class="s1">LatLng</span><span class="s2">(</span><span class="s1">location</span><span class="s2">.</span><span class="s1">getLatitude</span><span class="s2">(), </span><span class="s1">location</span><span class="s2">.</span><span class="s1">getLongitude</span><span class="s2">());</span>
+            <span class="s1">MarkerOptions markerOptions </span><span class="s2">= </span><span class="s0">new </span><span class="s1">MarkerOptions</span><span class="s2">()</span>
+                    <span class="s2">.</span><span class="s1">position</span><span class="s2">(</span><span class="s1">latlng</span><span class="s2">)</span>
+                    <span class="s2">.</span><span class="s1">title</span><span class="s2">(</span><span class="s4">&quot;Lat: &quot; </span><span class="s2">+ </span><span class="s1">location</span><span class="s2">.</span><span class="s1">getLatitude</span><span class="s2">() + </span><span class="s4">&quot;, Lon: &quot; </span><span class="s2">+ </span><span class="s1">location</span><span class="s2">.</span><span class="s1">getLongitude</span><span class="s2">());</span>
+            <span class="s1">mMap</span><span class="s2">.</span><span class="s1">addMarker</span><span class="s2">(</span><span class="s1">markerOptions</span><span class="s2">);</span>
+            <span class="s1">lastLocationPlaced </span><span class="s2">= </span><span class="s1">latlng</span><span class="s2">;</span>
+        <span class="s2">}</span>
+
+        <span class="s0">if </span><span class="s2">(</span><span class="s1">lastLocationPlaced </span><span class="s2">!= </span><span class="s0">null</span><span class="s2">) {</span>
+            <span class="s1">mMap</span><span class="s2">.</span><span class="s1">animateCamera</span><span class="s2">(</span><span class="s1">CameraUpdateFactory</span><span class="s2">.</span><span class="s1">newLatLngZoom</span><span class="s2">(</span><span class="s1">lastLocationPlaced</span><span class="s2">, </span><span class="s5">12.0f</span><span class="s2">));</span>
+        <span class="s2">}</span>
+
+        <span class="s3">// Handle marker click events</span>
+        <span class="s1">mMap</span><span class="s2">.</span><span class="s1">setOnMarkerClickListener</span><span class="s2">(</span><span class="s1">marker -&gt; </span><span class="s2">{</span>
+            <span class="s1">Integer clicks </span><span class="s2">= (</span><span class="s1">Integer</span><span class="s2">) </span><span class="s1">marker</span><span class="s2">.</span><span class="s1">getTag</span><span class="s2">();</span>
+            <span class="s1">clicks </span><span class="s2">= </span><span class="s1">clicks </span><span class="s2">== </span><span class="s0">null </span><span class="s2">? </span><span class="s5">1 </span><span class="s2">: </span><span class="s1">clicks </span><span class="s2">+ </span><span class="s5">1</span><span class="s2">;</span>
+            <span class="s1">marker</span><span class="s2">.</span><span class="s1">setTag</span><span class="s2">(</span><span class="s1">clicks</span><span class="s2">);</span>
+            <span class="s1">Toast</span><span class="s2">.</span><span class="s1">makeText</span><span class="s2">(</span><span class="s1">MapsActivity</span><span class="s2">.</span><span class="s0">this</span><span class="s2">, </span><span class="s1">marker</span><span class="s2">.</span><span class="s1">getTitle</span><span class="s2">() + </span><span class="s4">&quot; clicked &quot; </span><span class="s2">+ </span><span class="s1">clicks </span><span class="s2">+ </span><span class="s4">&quot; times&quot;</span><span class="s2">, </span><span class="s1">Toast</span><span class="s2">.</span><span class="s1">LENGTH_SHORT</span><span class="s2">).</span><span class="s1">show</span><span class="s2">();</span>
+            <span class="s0">return false</span><span class="s2">;</span>
+        <span class="s2">});</span>
+    <span class="s2">}</span>
+<span class="s2">}</span>
+</pre>
+</body>
+</html>
