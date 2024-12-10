@@ -7,3 +7,5 @@ Once you have installed Android Studio and Git you should open a bash terminal o
 This will save the project files to your device thus letting you open the project inside of Android Studio. 
 Once you load the project in Andrid Studio (file > open > select the project) sync the gradle files by pressing the sync button in the top right have corner of the application. 
 Once synced you can run the application! Happy Pathfinding!
+
+HERE IS THE URL FOR THE VIDEO WALKTHROUGH: https://youtu.be/zPCDHJ5l1ro
